@@ -1,4 +1,4 @@
 roboarm
 =======
 
-This repo contains my BOM, code, mechanical drawings, and schematic.
+This repo contains my code for the robotic arm I built during my time at Bluestamp.
