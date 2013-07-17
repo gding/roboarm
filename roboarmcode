@@ -1,0 +1,66 @@
+// Controlling a servo position using a potentiometer (variable resistor) 
+// by Michal Rinott <http://people.interaction-ivrea.it/m.rinott> 
+
+#include <Servo.h> 
+ 
+Servo servo0; // create servo object to control a servo 
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+
+/*
+servo0 is the gripper control
+servo1 is the wrist control
+servo2 is the elbow control
+servo3 and servo4 are base elevation control
+*/
+
+int pot0 = 0; // analog pin used to connect the potentiometer
+int pot1 = 1;
+int pot2 = 2;
+int pot3 = 3;
+
+int valpot0; // variable to read the value from the analog pin 
+int valpot1;
+int valpot2;
+int valpot3;
+
+int deg0; // variable to set degree for servo to turn
+int deg1;
+int deg2;
+int deg3;
+
+void setup() 
+{ 
+  servo0.attach(3);  // attaches the servo to pin 3 of te Arduino
+  servo1.attach(5);
+  servo2.attach(6);
+  servo3.attach(9);
+  servo4.attach(10);
+  Serial.begin(9600);  //begins seral communication for debugging
+} 
+ 
+void loop() 
+{ 
+  valpot0 = analogRead(pot0);  // reads the value of the potentiometer (value between 0 and 1023) 
+  deg0 = map(valpot0, 0, 1023, 0, 179);    // scale it to use it with the servo (value between 0 and 180) 
+  servo0.write(deg0);  // sets the servo position according to the scaled value
+  delay(5);  //waits for servo to move
+  
+  valpot1 = analogRead(pot1);
+  deg1 = map(valpot1, 0, 1023, 0, 179);
+  servo1.write(deg1);
+  delay(5);
+
+  valpot2 = analogRead(pot2);
+  deg2 = map(valpot2, 0, 1023, 0, 179);
+  servo2.write(deg2);
+  delay(5);
+  
+  valpot3 = analogRead(pot3);
+  deg3 = map(valpot3,0, 1023, 0, 134);
+  servo3.write(45 + deg3);
+  servo4.write(134 - deg3);
+  delay(5);
+} 
